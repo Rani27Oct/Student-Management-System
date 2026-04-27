@@ -2,6 +2,9 @@
 
 This is a simple Student Management System built using HTML, CSS, and JavaScript.
 
+## Project Overview
+This project allows users to manage student records by adding, editing, and deleting student details using a simple web interface.
+
 ## Features
 - Add student details
 - Display student list
