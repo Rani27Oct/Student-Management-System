@@ -121,3 +121,7 @@ function displayStudents() {
 
     document.getElementById("result").innerHTML = output;
 }
+        function deleteStudent(index) {
+    students.splice(index, 1);
+    displayStudents();
+}
