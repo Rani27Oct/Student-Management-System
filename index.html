@@ -1,27 +1,30 @@
-!DOCTYPE html>
-<html>
-<head>
-    <title>Student Management System</title>
-</head>
-<body>
-
-<h2>Student Form</h2>
-
-<input type="text" placeholder="Enter Name" id="name"><br><br>
-<input type="email" placeholder="Enter Email" id="email"><br><br>
-<input type="text" placeholder="Enter Course" id="course"><br><br>
-
-<button onclick="addStudent()">Add Student</button>
-
 <script>
+let students = [];
+
 function addStudent() {
     let name = document.getElementById("name").value;
     let email = document.getElementById("email").value;
     let course = document.getElementById("course").value;
 
-    alert("Student Added:\n" + name + "\n" + email + "\n" + course);
-}
-</script>
+    let student = {
+        name: name,
+        email: email,
+        course: course
+    };
 
-</body>
-</html>
+    students.push(student);
+    displayStudents();
+}
+
+function displayStudents() {
+    let output = "<h3>Student List</h3>";
+
+    for (let i = 0; i < students.length; i++) {
+        output += "<p>" + students[i].name + " - " + students[i].email + " - " + students[i].course + "</p>";
+    }
+
+    document.getElementById("result").innerHTML = output;
+}
+        </script>
+
+<div id="result"></div>
