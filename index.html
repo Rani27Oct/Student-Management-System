@@ -106,3 +106,18 @@ function displayStudents() {
 
 </body>
 </html>
+
+function displayStudents() {
+    let output = "<h3>Student List</h3>";
+
+    for (let i = 0; i < students.length; i++) {
+        output += `
+        <div class="student">
+            ${students[i].name} - ${students[i].email} - ${students[i].course}
+            <br>
+            <button onclick="deleteStudent(${i})">Delete</button>
+        </div>`;
+    }
+
+    document.getElementById("result").innerHTML = output;
+}
