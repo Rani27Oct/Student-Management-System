@@ -2,18 +2,63 @@
 <html>
 <head>
     <title>Student Management System</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        .container {
+            width: 350px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        input {
+            width: 90%;
+            padding: 8px;
+            margin: 8px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkgreen;
+        }
+
+        .student {
+            background: #e3f2fd;
+            margin: 5px;
+            padding: 8px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
+
 <body>
 
-<h2>Student Form</h2>
+<div class="container">
+    <h2>Student Form</h2>
 
-<input type="text" id="name" placeholder="Enter Name">
-<input type="email" id="email" placeholder="Enter Email">
-<input type="text" id="course" placeholder="Enter Course">
+    <input type="text" id="name" placeholder="Enter Name">
+    <input type="email" id="email" placeholder="Enter Email">
+    <input type="text" id="course" placeholder="Enter Course">
 
-<button onclick="addStudent()">Add Student</button>
+    <button onclick="addStudent()">Add Student</button>
 
-<div id="result"></div>
+    <div id="result"></div>
+</div>
 
 <script>
 let students = [];
@@ -23,6 +68,12 @@ function addStudent() {
     let email = document.getElementById("email").value;
     let course = document.getElementById("course").value;
 
+    // Validation
+    if (name === "" || email === "" || course === "") {
+        alert("Please fill all fields");
+        return;
+    }
+
     let student = {
         name: name,
         email: email,
@@ -31,13 +82,22 @@ function addStudent() {
 
     students.push(student);
     displayStudents();
+
+    // Clear inputs
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("course").value = "";
 }
 
 function displayStudents() {
     let output = "<h3>Student List</h3>";
 
     for (let i = 0; i < students.length; i++) {
-        output += "<p>" + students[i].name + " - " + students[i].email + " - " + students[i].course + "</p>";
+        output += "<div class='student'>" 
+               + students[i].name + " - " 
+               + students[i].email + " - " 
+               + students[i].course 
+               + "</div>";
     }
 
     document.getElementById("result").innerHTML = output;
