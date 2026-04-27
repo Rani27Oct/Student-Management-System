@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Student Management System</title>
@@ -31,6 +31,7 @@
             color: white;
             border: none;
             cursor: pointer;
+            margin: 5px;
         }
 
         button:hover {
@@ -61,8 +62,12 @@
 </div>
 
 <script>
-let students = [];
 
+// ✅ STEP 1: Load data from localStorage
+let students = JSON.parse(localStorage.getItem("students")) || [];
+displayStudents();
+
+// ✅ STEP 2: Add student
 function addStudent() {
     let name = document.getElementById("name").value;
     let email = document.getElementById("email").value;
@@ -80,13 +85,19 @@ function addStudent() {
     };
 
     students.push(student);
+
+    // Save data
+    localStorage.setItem("students", JSON.stringify(students));
+
     displayStudents();
 
+    // Clear inputs
     document.getElementById("name").value = "";
     document.getElementById("email").value = "";
     document.getElementById("course").value = "";
 }
 
+// ✅ STEP 3: Display students
 function displayStudents() {
     let output = "<h3>Student List</h3>";
 
@@ -95,6 +106,7 @@ function displayStudents() {
         <div class="student">
             ${students[i].name} - ${students[i].email} - ${students[i].course}
             <br>
+            <button onclick="editStudent(${i})">Edit</button>
             <button onclick="deleteStudent(${i})">Delete</button>
         </div>`;
     }
@@ -102,10 +114,30 @@ function displayStudents() {
     document.getElementById("result").innerHTML = output;
 }
 
+// ✅ STEP 4: Delete student
 function deleteStudent(index) {
     students.splice(index, 1);
+
+    localStorage.setItem("students", JSON.stringify(students));
+
     displayStudents();
 }
+
+// ✅ STEP 5: Edit student
+function editStudent(index) {
+    let student = students[index];
+
+    document.getElementById("name").value = student.name;
+    document.getElementById("email").value = student.email;
+    document.getElementById("course").value = student.course;
+
+    students.splice(index, 1);
+
+    localStorage.setItem("students", JSON.stringify(students));
+
+    displayStudents();
+}
+
 </script>
 
 </body>
