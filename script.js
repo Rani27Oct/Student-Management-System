@@ -1,5 +1,11 @@
-let students = [];
+let students = JSON.parse(localStorage.getItem("students")) || [];
 let editIndex = -1;
+
+displayStudents();
+
+function saveToLocalStorage() {
+    localStorage.setItem("students", JSON.stringify(students));
+}
 
 function addStudent() {
 
@@ -8,7 +14,7 @@ function addStudent() {
     const course = document.getElementById("course").value.trim();
 
     if (name === "" || email === "" || course === "") {
-        alert("Please fill all fields!");
+        alert("⚠️ Please fill all fields!");
         return;
     }
 
@@ -20,6 +26,8 @@ function addStudent() {
             course: course
         });
 
+        saveToLocalStorage();
+
         alert("✅ Student Added Successfully!");
 
     } else {
@@ -29,6 +37,8 @@ function addStudent() {
             email: email,
             course: course
         };
+
+        saveToLocalStorage();
 
         alert("✏️ Student Updated Successfully!");
 
@@ -47,28 +57,33 @@ function addStudent() {
 
 function displayStudents() {
 
-    const studentList = document.getElementById("studentList");
+    const studentList =
+        document.getElementById("studentList");
 
     studentList.innerHTML = "";
 
     students.forEach((student, index) => {
 
         studentList.innerHTML += `
-            <div class="student-card">
-                <h3>${student.name}</h3>
-                <p>${student.email}</p>
-                <p>${student.course}</p>
+        <div class="student-card">
 
-                <button class="edit-btn"
-                    onclick="editStudent(${index})">
-                    Edit
-                </button>
+            <h3>${student.name}</h3>
 
-                <button class="delete-btn"
-                    onclick="deleteStudent(${index})">
-                    Delete
-                </button>
-            </div>
+            <p>${student.email}</p>
+
+            <p>${student.course}</p>
+
+            <button class="edit-btn"
+            onclick="editStudent(${index})">
+            Edit
+            </button>
+
+            <button class="delete-btn"
+            onclick="deleteStudent(${index})">
+            Delete
+            </button>
+
+        </div>
         `;
     });
 
@@ -101,11 +116,13 @@ function editStudent(index) {
 function deleteStudent(index) {
 
     let confirmDelete =
-        confirm("Are you sure you want to delete this student?");
+        confirm("⚠️ Are you sure you want to delete this student?");
 
     if (confirmDelete) {
 
         students.splice(index, 1);
+
+        saveToLocalStorage();
 
         displayStudents();
 
@@ -116,7 +133,9 @@ function deleteStudent(index) {
 function searchStudent() {
 
     const search =
-        document.getElementById("search").value.toLowerCase();
+        document.getElementById("search")
+        .value
+        .toLowerCase();
 
     const cards =
         document.querySelectorAll(".student-card");
