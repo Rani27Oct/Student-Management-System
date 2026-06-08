@@ -1,131 +1,134 @@
 let students = [];
 let editIndex = -1;
 
-function addStudent(){
+function addStudent() {
 
-    let name =
-    document.getElementById("name").value;
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let course = document.getElementById("course").value;
 
-    let email =
-    document.getElementById("email").value;
-
-    let course =
-    document.getElementById("course").value;
-
-    if(name==="" || email==="" || course===""){
-        alert("Please fill all fields");
+    if (name === "" || email === "" || course === "") {
+        alert("⚠️ Please fill all fields!");
         return;
     }
 
-    if(editIndex===-1){
+    if (editIndex === -1) {
 
         students.push({
-            name:name,
-            email:email,
-            course:course
+            name: name,
+            email: email,
+            course: course
         });
 
         alert("✅ Student Added Successfully!");
 
-    }else{
+    } else {
 
-        students[editIndex]={
-            name:name,
-            email:email,
-            course:course
+        students[editIndex] = {
+            name: name,
+            email: email,
+            course: course
         };
 
-        alert("✏️ Student Updated Successfully!");
+        alert("✅ Student Updated Successfully!");
 
-        editIndex=-1;
+        editIndex = -1;
+
+        document.querySelector("button").innerText = "Add Student";
     }
 
-    document.getElementById("name").value="";
-    document.getElementById("email").value="";
-    document.getElementById("course").value="";
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("course").value = "";
 
     displayStudents();
 }
 
-function displayStudents(){
+function displayStudents() {
 
-    let studentList =
-    document.getElementById("studentList");
+    let studentList = document.getElementById("studentList");
 
-    studentList.innerHTML="";
+    studentList.innerHTML = "";
 
-    students.forEach((student,index)=>{
+    students.forEach((student, index) => {
 
         studentList.innerHTML += `
         <div class="student">
             <p>
-            ${student.name}
-            -
-            ${student.email}
-            -
-            ${student.course}
+                ${student.name} -
+                ${student.email} -
+                ${student.course}
             </p>
 
             <button class="edit-btn"
-            onclick="editStudent(${index})">
-            Edit
+                    onclick="editStudent(${index})">
+                Edit
             </button>
 
             <button class="delete-btn"
-            onclick="deleteStudent(${index})">
-            Delete
+                    onclick="deleteStudent(${index})">
+                Delete
             </button>
         </div>
         `;
     });
 
     document.getElementById("count").innerText =
-    students.length;
+        students.length;
 }
 
-function editStudent(index){
+function editStudent(index) {
 
     document.getElementById("name").value =
-    students[index].name;
+        students[index].name;
 
     document.getElementById("email").value =
-    students[index].email;
+        students[index].email;
 
     document.getElementById("course").value =
-    students[index].course;
+        students[index].course;
 
-    editIndex=index;
+    editIndex = index;
+
+    document.querySelector("button").innerText =
+        "Update Student";
 }
 
-function deleteStudent(index){
+function deleteStudent(index) {
 
-    if(confirm("Delete this student?")){
+    let confirmDelete = confirm(
+        "⚠️ Are you sure you want to delete this student?"
+    );
 
-        students.splice(index,1);
+    if (confirmDelete) {
+
+        students.splice(index, 1);
 
         displayStudents();
+
+        alert("✅ Student Deleted Successfully!");
     }
 }
 
-function searchStudent(){
+function searchStudent() {
 
     let input =
-    document.getElementById("search")
-    .value.toLowerCase();
+        document.getElementById("search")
+            .value
+            .toLowerCase();
 
     let cards =
-    document.getElementsByClassName("student");
+        document.getElementsByClassName("student");
 
-    for(let i=0;i<cards.length;i++){
+    for (let i = 0; i < cards.length; i++) {
 
         let text =
-        cards[i].innerText.toLowerCase();
+            cards[i].innerText.toLowerCase();
 
-        if(text.includes(input)){
-            cards[i].style.display="block";
-        }
-        else{
-            cards[i].style.display="none";
+        if (text.includes(input)) {
+            cards[i].style.display = "block";
+        } else {
+            cards[i].style.display = "none";
         }
     }
 }
