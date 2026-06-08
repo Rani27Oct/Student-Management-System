@@ -1,61 +1,107 @@
 let students = [];
+let editIndex = -1;
 
 function addStudent(){
 
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("email").value;
-    let course = document.getElementById("course").value;
+    let name =
+    document.getElementById("name").value;
+
+    let email =
+    document.getElementById("email").value;
+
+    let course =
+    document.getElementById("course").value;
 
     if(name==="" || email==="" || course===""){
         alert("Please fill all fields");
         return;
     }
 
-    students.push({
-        name:name,
-        email:email,
-        course:course
-    });
+    if(editIndex===-1){
 
-    displayStudents();
+        students.push({
+            name:name,
+            email:email,
+            course:course
+        });
+
+        alert("✅ Student Added Successfully!");
+
+    }else{
+
+        students[editIndex]={
+            name:name,
+            email:email,
+            course:course
+        };
+
+        alert("✏️ Student Updated Successfully!");
+
+        editIndex=-1;
+    }
 
     document.getElementById("name").value="";
     document.getElementById("email").value="";
     document.getElementById("course").value="";
-}
-
-function displayStudents(){
-
-    let list = document.getElementById("studentList");
-
-    list.innerHTML="";
-
-    students.forEach((student,index)=>{
-
-        list.innerHTML += `
-        <li>
-            ${student.name} - ${student.email} - ${student.course}
-            <br>
-            <button class="editBtn" onclick="editStudent(${index})">Edit</button>
-            <button class="deleteBtn" onclick="deleteStudent(${index})">Delete</button>
-        </li>`;
-    });
-}
-
-function deleteStudent(index){
-
-    students.splice(index,1);
 
     displayStudents();
 }
 
+function displayStudents(){
+
+    let studentList =
+    document.getElementById("studentList");
+
+    studentList.innerHTML="";
+
+    students.forEach((student,index)=>{
+
+        studentList.innerHTML += `
+        <div class="student">
+            <p>
+            ${student.name}
+            -
+            ${student.email}
+            -
+            ${student.course}
+            </p>
+
+            <button class="edit-btn"
+            onclick="editStudent(${index})">
+            Edit
+            </button>
+
+            <button class="delete-btn"
+            onclick="deleteStudent(${index})">
+            Delete
+            </button>
+        </div>
+        `;
+    });
+
+    document.getElementById("count").innerText =
+    students.length;
+}
+
 function editStudent(index){
 
-    let newName = prompt("Enter New Name",students[index].name);
+    document.getElementById("name").value =
+    students[index].name;
 
-    if(newName){
+    document.getElementById("email").value =
+    students[index].email;
 
-        students[index].name = newName;
+    document.getElementById("course").value =
+    students[index].course;
+
+    editIndex=index;
+}
+
+function deleteStudent(index){
+
+    if(confirm("Delete this student?")){
+
+        students.splice(index,1);
 
         displayStudents();
     }
@@ -67,16 +113,19 @@ function searchStudent(){
     document.getElementById("search")
     .value.toLowerCase();
 
-    let listItems =
-    document.querySelectorAll("#studentList li");
+    let cards =
+    document.getElementsByClassName("student");
 
-    listItems.forEach(item=>{
+    for(let i=0;i<cards.length;i++){
 
-        if(item.innerText.toLowerCase().includes(input)){
-            item.style.display="block";
+        let text =
+        cards[i].innerText.toLowerCase();
+
+        if(text.includes(input)){
+            cards[i].style.display="block";
         }
         else{
-            item.style.display="none";
+            cards[i].style.display="none";
         }
-    });
+    }
 }
