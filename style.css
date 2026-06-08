@@ -1,86 +1,108 @@
-body{
-    font-family:Arial,sans-serif;
-    background:#f2f2f2;
-    display:flex;
-    justify-content:center;
-    padding:20px;
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
 }
 
-.container{
-    width:500px;
-    background:white;
-    padding:25px;
-    border-radius:12px;
-    box-shadow:0 0 10px gray;
+.container {
+    width: 500px;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px gray;
 }
 
-h1{
-    text-align:center;
-    margin-bottom:20px;
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-input{
-    width:100%;
-    padding:12px;
-    margin-bottom:12px;
-    border:1px solid gray;
-    border-radius:5px;
-    box-sizing:border-box;
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
-button{
-    width:100%;
-    padding:12px;
-    background:green;
-    color:white;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-    font-size:16px;
+.add-btn {
+    width: 100%;
+    padding: 12px;
+    background: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
-button:hover{
-    background:darkgreen;
+.add-btn:hover {
+    background: darkgreen;
 }
 
-h2,h3{
-    text-align:center;
+h2 {
+    text-align: center;
 }
 
-.student{
-    background:#eaf4ff;
-    padding:15px;
-    margin-top:10px;
-    border-radius:8px;
-    text-align:center;
+.student-card {
+    background: #eaf4ff;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 10px;
+    text-align: center;
 }
 
-.edit-btn{
-    background:orange;
-    width:auto;
-    padding:8px 15px;
-    margin-right:10px;
+.student-card h3 {
+    margin-bottom: 10px;
 }
 
-.delete-btn{
-    background:red;
-    width:auto;
-    padding:8px 15px;
+.student-card p {
+    margin: 5px 0;
 }
 
-.contact{
-    margin-top:30px;
-    text-align:center;
-    background:#f8f8f8;
-    padding:15px;
-    border-radius:10px;
+.edit-btn {
+    background: orange;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
 }
 
-footer{
-    margin-top:20px;
-    text-align:center;
-    background:#222;
-    color:white;
-    padding:15px;
-    border-radius:8px;
+.edit-btn:hover {
+    background: darkorange;
+}
+
+.delete-btn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background: darkred;
+}
+
+.contact {
+    margin-top: 30px;
+    text-align: center;
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+footer {
+    margin-top: 20px;
+    text-align: center;
+    background: #222;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
 }
