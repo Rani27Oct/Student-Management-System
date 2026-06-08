@@ -3,12 +3,12 @@ let editIndex = -1;
 
 function addStudent() {
 
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("email").value;
-    let course = document.getElementById("course").value;
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const course = document.getElementById("course").value.trim();
 
     if (name === "" || email === "" || course === "") {
-        alert("⚠️ Please fill all fields!");
+        alert("Please fill all fields!");
         return;
     }
 
@@ -30,11 +30,12 @@ function addStudent() {
             course: course
         };
 
-        alert("✅ Student Updated Successfully!");
+        alert("✏️ Student Updated Successfully!");
 
         editIndex = -1;
 
-        document.querySelector("button").innerText = "Add Student";
+        document.querySelector(".add-btn").innerText =
+            "Add Student";
     }
 
     document.getElementById("name").value = "";
@@ -46,34 +47,32 @@ function addStudent() {
 
 function displayStudents() {
 
-    let studentList = document.getElementById("studentList");
+    const studentList = document.getElementById("studentList");
 
     studentList.innerHTML = "";
 
     students.forEach((student, index) => {
 
         studentList.innerHTML += `
-        <div class="student">
-            <p>
-                ${student.name} -
-                ${student.email} -
-                ${student.course}
-            </p>
+            <div class="student-card">
+                <h3>${student.name}</h3>
+                <p>${student.email}</p>
+                <p>${student.course}</p>
 
-            <button class="edit-btn"
+                <button class="edit-btn"
                     onclick="editStudent(${index})">
-                Edit
-            </button>
+                    Edit
+                </button>
 
-            <button class="delete-btn"
+                <button class="delete-btn"
                     onclick="deleteStudent(${index})">
-                Delete
-            </button>
-        </div>
+                    Delete
+                </button>
+            </div>
         `;
     });
 
-    document.getElementById("count").innerText =
+    document.getElementById("totalStudents").innerText =
         students.length;
 }
 
@@ -90,15 +89,19 @@ function editStudent(index) {
 
     editIndex = index;
 
-    document.querySelector("button").innerText =
+    document.querySelector(".add-btn").innerText =
         "Update Student";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
 function deleteStudent(index) {
 
-    let confirmDelete = confirm(
-        "⚠️ Are you sure you want to delete this student?"
-    );
+    let confirmDelete =
+        confirm("Are you sure you want to delete this student?");
 
     if (confirmDelete) {
 
@@ -106,29 +109,24 @@ function deleteStudent(index) {
 
         displayStudents();
 
-        alert("✅ Student Deleted Successfully!");
+        alert("🗑️ Student Deleted Successfully!");
     }
 }
 
 function searchStudent() {
 
-    let input =
-        document.getElementById("search")
-            .value
-            .toLowerCase();
+    const search =
+        document.getElementById("search").value.toLowerCase();
 
-    let cards =
-        document.getElementsByClassName("student");
+    const cards =
+        document.querySelectorAll(".student-card");
 
-    for (let i = 0; i < cards.length; i++) {
+    cards.forEach(card => {
 
-        let text =
-            cards[i].innerText.toLowerCase();
-
-        if (text.includes(input)) {
-            cards[i].style.display = "block";
+        if (card.innerText.toLowerCase().includes(search)) {
+            card.style.display = "block";
         } else {
-            cards[i].style.display = "none";
+            card.style.display = "none";
         }
-    }
+    });
 }
