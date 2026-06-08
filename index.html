@@ -2,143 +2,31 @@
 <html>
 <head>
     <title>Student Management System</title>
-
-    <style>
-        body {
-            font-family: Arial;
-            background-color: #f4f4f4;
-            text-align: center;
-        }
-
-        .container {
-            width: 350px;
-            margin: 50px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 0 10px gray;
-        }
-
-        input {
-            width: 90%;
-            padding: 8px;
-            margin: 8px 0;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: green;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin: 5px;
-        }
-
-        button:hover {
-            background-color: darkgreen;
-        }
-
-        .student {
-            background: #e3f2fd;
-            margin: 5px;
-            padding: 8px;
-            border-radius: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="container">
-    <h2>Student Form</h2>
+
+    <h1>🎓 Student Management System</h1>
+
+    <input type="text" id="search" placeholder="🔍 Search Student" onkeyup="searchStudent()">
 
     <input type="text" id="name" placeholder="Enter Name">
+
     <input type="email" id="email" placeholder="Enter Email">
+
     <input type="text" id="course" placeholder="Enter Course">
 
     <button onclick="addStudent()">Add Student</button>
 
-    <div id="result"></div>
+    <h2>Student List</h2>
+
+    <ul id="studentList"></ul>
+
 </div>
 
-<script>
-
-// ✅ STEP 1: Load data from localStorage
-let students = JSON.parse(localStorage.getItem("students")) || [];
-displayStudents();
-
-// ✅ STEP 2: Add student
-function addStudent() {
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("email").value;
-    let course = document.getElementById("course").value;
-
-    if (name === "" || email === "" || course === "") {
-        alert("Please fill all fields");
-        return;
-    }
-
-    let student = {
-        name: name,
-        email: email,
-        course: course
-    };
-
-    students.push(student);
-
-    // Save data
-    localStorage.setItem("students", JSON.stringify(students));
-
-    displayStudents();
-
-    // Clear inputs
-    document.getElementById("name").value = "";
-    document.getElementById("email").value = "";
-    document.getElementById("course").value = "";
-}
-
-// ✅ STEP 3: Display students
-function displayStudents() {
-    let output = "<h3>Student List</h3>";
-
-    for (let i = 0; i < students.length; i++) {
-        output += `
-        <div class="student">
-            ${students[i].name} - ${students[i].email} - ${students[i].course}
-            <br>
-            <button onclick="editStudent(${i})">Edit</button>
-            <button onclick="deleteStudent(${i})">Delete</button>
-        </div>`;
-    }
-
-    document.getElementById("result").innerHTML = output;
-}
-
-// ✅ STEP 4: Delete student
-function deleteStudent(index) {
-    students.splice(index, 1);
-
-    localStorage.setItem("students", JSON.stringify(students));
-
-    displayStudents();
-}
-
-// ✅ STEP 5: Edit student
-function editStudent(index) {
-    let student = students[index];
-
-    document.getElementById("name").value = student.name;
-    document.getElementById("email").value = student.email;
-    document.getElementById("course").value = student.course;
-
-    students.splice(index, 1);
-
-    localStorage.setItem("students", JSON.stringify(students));
-
-    displayStudents();
-}
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
